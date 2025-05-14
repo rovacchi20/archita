@@ -158,7 +158,7 @@ Il tuo obiettivo è restituire un output JSON completo con i dati essenziali e r
 - **Output**: un oggetto JSON per ciascun file processato.
 Deve contenere almeno:
 - `consumo_kwh`: valore numerico (float) del consumo in kWh se energia elettrica
-- `costo_euro`: valore numerico (float) dell’importo totale da pagare, in euro. Del totale dell'energia fatturata a bolletta.
+- `costo_euro`: valore numerico (float) dell’importo totale da pagare, in euro. Del totale dell'energia fatturata a bolletta. Guarda bene che sia il valore delal fattura e non numeri casuali. esempio: Totale Fattura € 1.234,09 o comunque il riferimento rispetto l'energia usata.
 - Se disponibili, aggiungi anche:
 - `energia`: specifica se la bolletta si riferisce a "energia elettrica" o "gas naturale" o qualsiasi altro tipo di energia
 - `file`: nome esatto del file PDF da cui provengono i dati
