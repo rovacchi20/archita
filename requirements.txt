@@ -1,9 +1,10 @@
 streamlit
 pandas
 pdfplumber
-PyMuPDF
+pymupdf
 easyocr
-numpy
 opencv-python-headless
 pillow
 openai
+matplotlib
+numpy
