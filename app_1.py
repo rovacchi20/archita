@@ -115,11 +115,15 @@ Il tuo obiettivo è restituire un output JSON completo con i dati essenziali e r
 - **Input**: testo grezzo estratto da PDF, immagini o altri documenti di bolletta. 
 - **Output**: un oggetto JSON per ciascun file processato.
 Deve contenere almeno:
-- `consumo_kwh`: valore numerico (float) del consumo in kWh se energia elettrica
-- `costo_euro`: valore numerico (float) dell’importo totale da pagare, in euro, relativo all'energia fatturata a bolletta.
+- consumo_kwh: valore numerico (float) del consumo in kWh se energia elettrica
+- costo_euro: valore numerico (float) dell’importo totale da pagare, in euro, relativo all'energia fatturata a bolletta.
+- Numero fattura : numero di fattura presente nel documento
+- Data: data di emissione della fattura/bolletta
+- Periodo di riferimento: periodo a cui fa riferimento fattura/bolletta
+- Nominativo fornitore energia: Ragione sociale del fornitore dell'eneriga relativa alla fattura
 - Se disponibili, aggiungi anche:
-- `energia`: specifica se la bolletta si riferisce a "energia elettrica" o "gas naturale"
-- `file`: nome esatto del file da cui provengono i dati
+- energia: specifica se la bolletta si riferisce a "energia elettrica" o "gas naturale"
+- file: nome esatto del file da cui provengono i dati
 - Inoltre, applica regex per individuare l’ultima occorrenza di “kWh”, “Smc” e “€” e convertire i numeri dal formato italiano (rimuovi i punti per le migliaia, sostituisci la virgola con il punto e cast a float).
 - Se il parsing diretto fallisce, usa un modello OpenAI a temperatura zero applicato sul paragrafo più pertinente per ottenere i dati richiesti in **strict JSON**.
 </ISTRUZIONI>
@@ -127,7 +131,7 @@ Deve contenere almeno:
  - Per ogni numero in formato europeo:
    1. Rimuovi i punti (“.”) delle migliaia.
    2. Sostituisci la virgola (“,”) con il punto (“.”).
-   3. Cast a `float`. Se “kWh” o “€” compaiono più volte, prendi l’ultima occorrenza.
+   3. Cast a float. Se “kWh” o “€” compaiono più volte, prendi l’ultima occorrenza.
  - In tabelle PDF, cerca la riga con “Totale” e prendi il valore nella colonna successiva.
 - Nel fallback AI, invia al modello solo il paragrafo pertinente e richiedi output in **strict JSON**.
 </DETTAGLI>
@@ -138,6 +142,10 @@ Un modello AI per l’estrazione automatica e scalabile dei dati principali dall
 "Ignora numeri parziali o intermedi. Riporta solo:\n"
 "- consumo_kwh: float\n"
 "- costo_euro: float\n"
+"-Numero fattura : float\n"
+"-Data: float\n"
+"-Periodo di riferimento: float\n"
+"-Nominativo fornitore energia: float\n"
 f"- file: \"{filename}\"\n\n"
 
 """
